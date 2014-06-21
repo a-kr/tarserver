@@ -46,6 +46,12 @@ func getContentTypeByFilename(filename string) string {
 	if strings.HasSuffix(filename, ".mp4") {
 		return "video/mp4"
 	}
+	if strings.HasSuffix(filename, ".m3u8") {
+		return "application/vnd.apple.mpegurl"
+	}
+	if strings.HasSuffix(filename, ".m3u") {
+		return "audio/mpegurl"
+	}
 	return "application/octet-stream"
 }
 
