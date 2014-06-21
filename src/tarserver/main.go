@@ -55,7 +55,7 @@ func tarHandler(w http.ResponseWriter, r *http.Request) {
 	for {
 		hdr, err := tarReader.Next()
 		if err == io.EOF {
-			// end of tar archive, and we still didn't found our file
+			// end of tar archive, and we still haven't found our file
 			log.Printf("Cannot find %s inside %s", insideTarPath, fullTarPath)
 			http.Error(w, fmt.Sprintf("No such file inside the archive: %s", insideTarPath), http.StatusNotFound)
 			return
@@ -67,6 +67,7 @@ func tarHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		if hdr.Name == insideTarPath {
 			w.Header().Set("Content-Type", getContentTypeByFilename(insideTarPath))
+			w.Header().Set("Content-Length", fmt.Sprintf("%d", hdr.Size))
 			if _, err := io.Copy(w, tarReader); err != nil {
 				log.Printf("Error while serving %s/%s: %s", fullTarPath, insideTarPath, err)
 				return
