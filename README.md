@@ -7,11 +7,9 @@ How to build
 ------------
 
 tarserver is written in Go. You need golang 1.2+ to build it.
-
+In most cases simple `go get` is enough to get, build and install it:
 ```
-git clone https://github.com/Babazka/tarserver.git
-cd tarserver
-make
+go get github.com/Babazka/tarserver
 ```
 
 How to run
