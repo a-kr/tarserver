@@ -1,4 +1,4 @@
-# Copyright 2014 Alexey Kryuchkov
+# Copyright (C) 2014 Alexey Kryuchkov <alexey.kruchkov@gmail.com>
 #
 # This file is part of tarserver.
 #
