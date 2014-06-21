@@ -35,6 +35,7 @@ var (
 	Root         = flag.String("root", "/www/", "root directory to serve tar files from")
 	BaseLocation = flag.String("base-location", "/contents", "base HTTP location to strip from URI")
 	ServeAddr    = flag.String("listen", ":80", "address to listen on")
+	Blocksize    = flag.Int64("blocksize", 1024*1024, "file reading blocksize, bytes")
 )
 
 const (
@@ -87,7 +88,10 @@ func tarHandler(w http.ResponseWriter, r *http.Request) {
 		if hdr.Name == insideTarPath {
 			w.Header().Set("Content-Type", getContentTypeByFilename(insideTarPath))
 			w.Header().Set("Content-Length", fmt.Sprintf("%d", hdr.Size))
-			if _, err := io.Copy(w, tarReader); err != nil {
+			var err error
+			for err = nil; err == nil; _, err = io.CopyN(w, tarReader, *Blocksize) {
+			}
+			if err != io.EOF {
 				log.Printf("Error while serving %s/%s: %s", fullTarPath, insideTarPath, err)
 				return
 			}

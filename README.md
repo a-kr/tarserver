@@ -21,4 +21,6 @@ How to run
 bin/tarserver --listen=:8089 --base-location=/files --root=/www
 ```
 
-Files located in `/www` directory will be served from `http://localhost:8089/files/<filename.tar>/<path inside the archive>`.
+Files located in `/www` directory will be served from
+`http://localhost:8089/files/<filename.tar>/<path inside the archive>`.
+Optionally you can specify read blocksize in bytes using `-blocksize`.
