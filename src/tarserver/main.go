@@ -23,6 +23,9 @@ const (
 )
 
 func getContentTypeByFilename(filename string) string {
+	if strings.HasSuffix(filename, ".mp4") {
+		return "video/mp4"
+	}
 	return "application/octet-stream"
 }
 
